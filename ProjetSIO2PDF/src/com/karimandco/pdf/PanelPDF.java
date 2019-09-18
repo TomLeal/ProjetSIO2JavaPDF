@@ -7,6 +7,9 @@ package com.karimandco.pdf;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -24,7 +27,25 @@ public class PanelPDF extends javax.swing.JPanel {
         lienPDF="";
         jLabelLienPDF.setForeground(Color.red);
         jLabelLienPDF.setText("Choisissez un dossier");
+        
+        nom="Leal";
+        prenom="Tom";
+        numero="06 06 06 06 06";
     }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,8 +120,15 @@ public class PanelPDF extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonChoisirBoutonMouseClicked
 
     private void jButtonEnregistrerPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEnregistrerPDFMouseClicked
-        if (lienPDF!="") {
-            JOptionPane.showConfirmDialog(this, "Ok, c'est bon");
+        Pdf pdf = new Pdf(nom, prenom, numero, lienPDF);
+        System.out.println(lienPDF);
+        if (pdf.verifPDF()) {
+            try {
+                pdf.genererPDF();
+                JOptionPane.showMessageDialog(this, "cv.pdf a été enregistré dans "+lienPDF);
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showConfirmDialog(this, "Erreur");
+            }
         } else {
             JOptionPane.showConfirmDialog(this, "Pas ok, c'est pas bon");
         }
@@ -109,6 +137,9 @@ public class PanelPDF extends javax.swing.JPanel {
 
     public String lienPDF;
     public SelectionnerPDF selectPDF = new SelectionnerPDF();
+    private String nom="";
+    private String prenom="";
+    private String numero="";
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonChoisirBouton;
     private javax.swing.JButton jButtonEnregistrerPDF;
