@@ -36,7 +36,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="com.karimandco.pdf.choisirDossier" name="choisirDossier1">
+    <Component class="com.karimandco.pdf.ChoisirDossier" name="choisirDossier1">
     </Component>
   </SubComponents>
 </Form>

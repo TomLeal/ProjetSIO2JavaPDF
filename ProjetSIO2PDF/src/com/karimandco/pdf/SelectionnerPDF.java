@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.karimandco.pdf;
 
 /**
- *
+ * 
  * @author t.leal
  */
 public class SelectionnerPDF extends javax.swing.JFrame {
@@ -20,7 +15,11 @@ public class SelectionnerPDF extends javax.swing.JFrame {
         setTitle("Choisissez un dossier");
     }
     
-    public choisirDossier getChoisirDossier(){
+    /**
+     * Récupère choisirDossier.
+     * @return ChoisirDossier
+     */
+    public ChoisirDossier getChoisirDossier(){
         return choisirDossier1;
     }
 
@@ -33,7 +32,7 @@ public class SelectionnerPDF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        choisirDossier1 = new com.karimandco.pdf.choisirDossier();
+        choisirDossier1 = new com.karimandco.pdf.ChoisirDossier();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,6 +88,6 @@ public class SelectionnerPDF extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.karimandco.pdf.choisirDossier choisirDossier1;
+    private com.karimandco.pdf.ChoisirDossier choisirDossier1;
     // End of variables declaration//GEN-END:variables
 }

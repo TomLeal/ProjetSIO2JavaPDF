@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Composant qui va permettre d'enregistrer le PDF dans l'endroit que l'on aura sélectionner.
  * @author t.leal
  */
 public class PanelPDF extends javax.swing.JPanel {
@@ -28,19 +28,32 @@ public class PanelPDF extends javax.swing.JPanel {
         jLabelLienPDF.setForeground(Color.red);
         jLabelLienPDF.setText("Choisissez un dossier");
         
+        //TEST a supprimer
         nom="Leal";
         prenom="Tom";
         numero="06 06 06 06 06";
     }
 
+    /**
+     * Modifie la propriété nom.
+     * @param nom 
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
+    /**
+     * Modifie la propriété prenom.
+     * @param prenom 
+     */
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
 
+    /**
+     * Modifie la propriété numero.
+     * @param numero 
+     */
     public void setNumero(String numero) {
         this.numero = numero;
     }
@@ -101,6 +114,9 @@ public class PanelPDF extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    //Fonction qui va s'exécuter quand on appuie sur le bouton "Choisir un dossier".
+    
     private void jButtonChoisirBoutonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonChoisirBoutonMouseClicked
         int result;
         File dossierChoisi;
@@ -119,6 +135,9 @@ public class PanelPDF extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonChoisirBoutonMouseClicked
 
+    
+    //Fonction qui va s'exécuter quand on appuie sur le bouton "Enregistrer".
+    
     private void jButtonEnregistrerPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEnregistrerPDFMouseClicked
         Pdf pdf = new Pdf(nom, prenom, numero, lienPDF);
         System.out.println(lienPDF);
@@ -127,13 +146,12 @@ public class PanelPDF extends javax.swing.JPanel {
                 pdf.genererPDF();
                 JOptionPane.showMessageDialog(this, "cv.pdf a été enregistré dans "+lienPDF);
             } catch (FileNotFoundException ex) {
-                JOptionPane.showConfirmDialog(this, "Erreur");
+                JOptionPane.showMessageDialog(this, "Erreur");
             }
         } else {
-            JOptionPane.showConfirmDialog(this, "Pas ok, c'est pas bon");
+            JOptionPane.showMessageDialog(this, "Pas ok, c'est pas bon");
         }
     }//GEN-LAST:event_jButtonEnregistrerPDFMouseClicked
-
 
     public String lienPDF;
     public SelectionnerPDF selectPDF = new SelectionnerPDF();
