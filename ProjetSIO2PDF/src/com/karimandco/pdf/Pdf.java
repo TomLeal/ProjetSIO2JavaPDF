@@ -5,23 +5,21 @@
  */
 package com.karimandco.pdf;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.List;
-import com.itextpdf.text.ListItem;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.paint.Color;
-import javax.swing.border.Border;
 
 /**
  *
@@ -65,17 +63,22 @@ public class Pdf {
         return lienResult;
     }
     
-    public void genererPDF() throws FileNotFoundException{
+    public void genererPDF() throws FileNotFoundException, BadElementException, IOException{
         try {
             Document document = new Document();
+            Image image;
+            String url = "https://kodejava.org/wp-content/uploads/2017/01/kodejava.png";
+            image = Image.getInstance(url);
+            
             lienPDF = corrigeLeLien(lienPDF);
             System.out.println(lienPDF);
             PdfWriter.getInstance(document, new FileOutputStream(lienPDF));
             System.out.println("OK");
             document.open();
+            
             PdfPTable Table = new PdfPTable(2);
             PdfPCell C1 = new PdfPCell(new Phrase("Image"));
-
+            C1.addElement(image);
             C1.setBorderColor(BaseColor.WHITE);
             Table.addCell(C1);
             C1 = new PdfPCell(new Phrase(""));
