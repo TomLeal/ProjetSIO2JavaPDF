@@ -1,4 +1,4 @@
-# KarimAndCo Composant JAVA PDF
+# KarimAndCo - Composant JAVA PDF
 
 Projet de BTS SIO seconde année.
 
