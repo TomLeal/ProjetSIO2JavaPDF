@@ -6,7 +6,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
- * Jeu d'essai
+ * Jeu d'essai A SUPPRIMER 
  * @author t.leal
  */
 public class TestPDF extends javax.swing.JFrame {
