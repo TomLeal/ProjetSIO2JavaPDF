@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -25,25 +26,58 @@ public class PanelPDF extends javax.swing.JPanel {
         lienPDF="";
         jLabelLienPDF.setForeground(Color.red);
         jLabelLienPDF.setText("Choisissez un dossier");
-        
-        nom="Leal";
-        prenom="Tom";
-        numero="06 06 06 06 06";
+    }
+    
+    public PanelPDF(String nom, String prenom, String numero, String courriel, Date dateDeNaissance, String[] experience, String[] formation, String[] informatique, String[] langues, String[] centreInteret){
+        initComponents();
+        lienPDF="";
+        jLabelLienPDF.setForeground(Color.red);
+        jLabelLienPDF.setText("Choisissez un dossier");
+        modifieValeur(nom, prenom, numero, courriel, dateDeNaissance, experience, formation, informatique, langues, centreInteret);
     }
 
+    //Mutateur et accesseur
+    
+    /**
+     * Modifie le nom.
+     * @param nom 
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
-
+    /**
+     * Modifie le prénom.
+     * @param prenom 
+     */
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-
+    /**
+     * Modifie le numéro.
+     * @param numero 
+     */
     public void setNumero(String numero) {
         this.numero = numero;
     }
     
-    
+    /**
+     * Modifie les valeurs du CV.
+     * @param nom
+     * @param prenom
+     * @param numero 
+     */
+    public void modifieValeur(String nom, String prenom, String numero, String courriel, Date dateDeNaissance, String[] experience, String[] formation, String[] informatique, String[] langues, String[] centreInteret){
+        this.nom=nom;
+        this.prenom=prenom;
+        this.numero=numero;
+        this.courriel=courriel;
+        this.dateDeNaissance=dateDeNaissance;
+        this.experience=experience;
+        this.formation=formation;
+        this.informatique=informatique;
+        this.langues=langues;
+        this.centreInteret=centreInteret;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -118,21 +152,21 @@ public class PanelPDF extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonChoisirBoutonMouseClicked
 
     private void jButtonEnregistrerPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEnregistrerPDFMouseClicked
-        Pdf pdf = new Pdf(nom, prenom, numero, lienPDF);
+        Pdf pdf = new Pdf(nom, prenom, numero, courriel, lienPDF, dateDeNaissance, experience, formation, informatique, langues, centreInteret);
         System.out.println(lienPDF);
         if (pdf.verifPDF()) {
             try {
                 pdf.genererPDF();
                 JOptionPane.showMessageDialog(this, "cv.pdf a été enregistré dans "+lienPDF);
             } catch (FileNotFoundException ex) {
-                JOptionPane.showConfirmDialog(this, "Erreur");
+                JOptionPane.showMessageDialog(this, "Erreur","PDF",JOptionPane.ERROR_MESSAGE);
             } catch (BadElementException ex) {
                 Logger.getLogger(PanelPDF.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(PanelPDF.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showConfirmDialog(this, "Pas ok, c'est pas bon");
+            JOptionPane.showMessageDialog(this, "Vous devez sélectionné un dossier.","PDF",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonEnregistrerPDFMouseClicked
 
@@ -142,6 +176,13 @@ public class PanelPDF extends javax.swing.JPanel {
     private String nom="";
     private String prenom="";
     private String numero="";
+    private String courriel="";
+    private Date dateDeNaissance=null;
+    private String[] experience;
+    private String[] formation;
+    private String[] informatique;
+    private String[] langues;
+    private String[] centreInteret;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonChoisirBouton;
     private javax.swing.JButton jButtonEnregistrerPDF;

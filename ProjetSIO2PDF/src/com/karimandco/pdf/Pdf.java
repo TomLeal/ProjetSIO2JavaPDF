@@ -16,30 +16,45 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Classer qui génere le CV.
  * @author l.saupagna
  */
 public class Pdf {
 
-    String nom;
-    String prenom;
-    String numero;
+    private String nom;
+    private String prenom;
+    private String numero;
+    private String courriel;
+    private Date dateDeNaissance;
+    private String[] experience;
+    private String[] formation;
+    private String[] informatique;
+    private String[] langues;
+    private String[] centreInteret;
 
-    String lienPDF;
+    private String lienPDF;
 
-    public Pdf(String nom, String prenom, String numero, String lienPDF) {
+    public Pdf(String nom, String prenom, String numero, String courriel, String lienPDF, Date dateNaissance, String[] experience, String[] formation, String[] informatique, String[] langues, String[] centreInteret) {
         this.nom = nom;
         this.prenom = prenom;
         this.numero = numero;
+        this.courriel=courriel;
+        this.dateDeNaissance=dateNaissance;
+        this.experience=experience;
+        this.formation=formation;
+        this.informatique=informatique;
+        this.langues=langues;
+        this.centreInteret=centreInteret;
         this.lienPDF = lienPDF;
     }
 
     public boolean verifPDF() {
-        if (nom != "" && prenom != "" && numero != "" && lienPDF != "") {
+        if (nom != "" && prenom != "" && numero != "" && courriel != "" && lienPDF != "" && dateDeNaissance!=null && experience.length>0 && formation.length>0 && informatique.length>0 && langues.length>0 && centreInteret.length>0) {
             return true;
         } else {
             return false;
@@ -100,7 +115,7 @@ public class Pdf {
             para1.add(new Paragraph(""));
                         para1.add(new Paragraph(" "));
             para1.add(new Paragraph("Date Naissance :"));
-            para1.add(new Paragraph("**/**/****"));
+            para1.add(new Paragraph(this.dateDeNaissance.getDay()+"/"+this.dateDeNaissance.getMonth()+"/"+this.dateDeNaissance.getYear()));
                         para1.add(new Paragraph(" "));
             para1.add(new Paragraph("Numero :"));
             para1.add(new Paragraph(numero));
@@ -126,13 +141,17 @@ public class Pdf {
             C2.addElement(espace);
             Table2.addCell(C2);
             Paragraph Formation = new Paragraph("FORMATIONS :");
-            Formation.add(new Paragraph("BTS SIO jean lurcat 2018/2020"));
+            for (int i = 0; i < formation.length; i++) {
+                Formation.add(new Paragraph(formation[i]));
+            }
             C2.addElement(Formation);
             Table2.addCell(C2);
             C2.addElement(espace);
             Table2.addCell(C2);
             Paragraph expepro = new Paragraph("EXPERIENCES PROFESSIONELLES :");
-            expepro.add(new Paragraph("Stage de bts chez Android"));
+            for (int i = 0; i < experience.length; i++) {
+                expepro.add(new Paragraph(experience[i]));
+            }
             C2.addElement(expepro);
             Table.addCell(C2);
 //            Table.setHeaderRows(1);

@@ -1,6 +1,7 @@
 package com.karimandco.pdf;
 
 import java.io.File;
+import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -16,6 +17,13 @@ public class TestPDF extends javax.swing.JFrame {
     public TestPDF() {
         initComponents();
         selectPDF.setVisible(false);
+        Date date = new Date(2000, 7, 10);
+        String[] exp = {"Stage 1","Stage 2"};
+        String[] form = {"BAC STI2D","BTS SIO"};
+        String[] info = {"HTML", "Javascript", "CSS", "Java", "Python"};
+        String[] lang = {"Anglais", "Espagnol"};
+        String[] cI = {"rien", "et rien ..."};
+        panelPDF1.modifieValeur("Leal", "Tom", "06 06 06 06 06", "tomleal@karimandco.fr", date, exp, form, info, lang, cI);
     }
 
     /** This method is called from within the constructor to
