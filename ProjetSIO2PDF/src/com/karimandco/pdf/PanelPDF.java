@@ -1,6 +1,7 @@
 package com.karimandco.pdf;
 
 import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Image;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,12 +29,12 @@ public class PanelPDF extends javax.swing.JPanel {
         jLabelLienPDF.setText("Choisissez un dossier");
     }
     
-    public PanelPDF(String nom, String prenom, String numero, String courriel, Date dateDeNaissance, String[] experience, String[] formation, String[] informatique, String[] langues, String[] centreInteret){
+    public PanelPDF(String nom, String prenom, String numero, String courriel, Date dateDeNaissance, String[] experience, String[] formation, String[] informatique, String[] langues, String[] centreInteret, Image image){
         initComponents();
         lienPDF="";
         jLabelLienPDF.setForeground(Color.red);
         jLabelLienPDF.setText("Choisissez un dossier");
-        modifieValeur(nom, prenom, numero, courriel, dateDeNaissance, experience, formation, informatique, langues, centreInteret);
+        modifieValeur(nom, prenom, numero, courriel, dateDeNaissance, experience, formation, informatique, langues, centreInteret, image);
     }
 
     //Mutateur et accesseur
@@ -66,7 +67,7 @@ public class PanelPDF extends javax.swing.JPanel {
      * @param prenom
      * @param numero 
      */
-    public void modifieValeur(String nom, String prenom, String numero, String courriel, Date dateDeNaissance, String[] experience, String[] formation, String[] informatique, String[] langues, String[] centreInteret){
+    public void modifieValeur(String nom, String prenom, String numero, String courriel, Date dateDeNaissance, String[] experience, String[] formation, String[] informatique, String[] langues, String[] centreInteret, Image image){
         this.nom=nom;
         this.prenom=prenom;
         this.numero=numero;
@@ -77,6 +78,7 @@ public class PanelPDF extends javax.swing.JPanel {
         this.informatique=informatique;
         this.langues=langues;
         this.centreInteret=centreInteret;
+        this.image=image;
     }
 
     /**
@@ -152,7 +154,7 @@ public class PanelPDF extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonChoisirBoutonMouseClicked
 
     private void jButtonEnregistrerPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEnregistrerPDFMouseClicked
-        Pdf pdf = new Pdf(nom, prenom, numero, courriel, lienPDF, dateDeNaissance, experience, formation, informatique, langues, centreInteret);
+        Pdf pdf = new Pdf(nom, prenom, numero, courriel, lienPDF, dateDeNaissance, experience, formation, informatique, langues, centreInteret, image);
         System.out.println(lienPDF);
         if (pdf.verifPDF()) {
             try {
@@ -183,6 +185,7 @@ public class PanelPDF extends javax.swing.JPanel {
     private String[] informatique;
     private String[] langues;
     private String[] centreInteret;
+    private Image image;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonChoisirBouton;
     private javax.swing.JButton jButtonEnregistrerPDF;

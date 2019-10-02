@@ -1,20 +1,26 @@
 package com.karimandco.pdf;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Image;
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
- * Jeu d'essai A SUPPRIMER 
+ * /!\ A SUPPRIMER /!\
  * @author t.leal
  */
 public class TestPDF extends javax.swing.JFrame {
 
     /** Creates new form TestPDF */
     public SelectionnerPDF selectPDF = new SelectionnerPDF();
+    private Image image;
     
-    public TestPDF() {
+    public TestPDF() throws BadElementException, IOException {
         initComponents();
         selectPDF.setVisible(false);
         Date date = new Date(2000, 7, 10);
@@ -22,8 +28,9 @@ public class TestPDF extends javax.swing.JFrame {
         String[] form = {"BAC STI2D","BTS SIO"};
         String[] info = {"HTML", "Javascript", "CSS", "Java", "Python"};
         String[] lang = {"Anglais", "Espagnol"};
-        String[] cI = {"rien", "et rien ..."};
-        panelPDF1.modifieValeur("Leal", "Tom", "06 06 06 06 06", "tomleal@karimandco.fr", date, exp, form, info, lang, cI);
+        String[] cI = {"Test 1", "Test 2"};
+        image = Image.getInstance("https://kodejava.org/wp-content/uploads/2017/01/kodejava.png");
+        panelPDF1.modifieValeur("Leal", "Tom", "06 06 06 06 06", "tomleal@karimandco.fr", date, exp, form, info, lang, cI, image);
     }
 
     /** This method is called from within the constructor to
@@ -90,7 +97,13 @@ public class TestPDF extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TestPDF().setVisible(true);
+                try {
+                    new TestPDF().setVisible(true);
+                } catch (BadElementException ex) {
+                    Logger.getLogger(TestPDF.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(TestPDF.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         

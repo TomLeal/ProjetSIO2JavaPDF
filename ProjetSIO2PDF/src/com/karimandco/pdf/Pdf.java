@@ -37,10 +37,11 @@ public class Pdf {
     private String[] informatique;
     private String[] langues;
     private String[] centreInteret;
+    private Image image;
 
     private String lienPDF;
 
-    public Pdf(String nom, String prenom, String numero, String courriel, String lienPDF, Date dateNaissance, String[] experience, String[] formation, String[] informatique, String[] langues, String[] centreInteret) {
+    public Pdf(String nom, String prenom, String numero, String courriel, String lienPDF, Date dateNaissance, String[] experience, String[] formation, String[] informatique, String[] langues, String[] centreInteret, Image image) {
         this.nom = nom;
         this.prenom = prenom;
         this.numero = numero;
@@ -52,6 +53,7 @@ public class Pdf {
         this.langues = langues;
         this.centreInteret = centreInteret;
         this.lienPDF = lienPDF;
+        this.image=image;
     }
 
     /**
@@ -115,9 +117,6 @@ public class Pdf {
     public void genererPDF() throws FileNotFoundException, BadElementException, IOException {
         try {
             Document document = new Document(PageSize.A4, 0, 0, 0, 0);
-            Image image;
-            String url = "https://kodejava.org/wp-content/uploads/2017/01/kodejava.png";
-            image = Image.getInstance(url);
 
             lienPDF = corrigeLeLien(lienPDF);
             System.out.println(lienPDF);
