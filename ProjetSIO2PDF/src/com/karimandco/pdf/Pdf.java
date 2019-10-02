@@ -147,7 +147,7 @@ public class Pdf {
             para1.add(new Paragraph(prenom));
             para1.add(new Paragraph(" "));
             para1.add(new Paragraph("Adresse :"));
-            para1.add(new Paragraph(""));
+            para1.add(new Paragraph(courriel));
             para1.add(new Paragraph(" "));
             para1.add(new Paragraph("Date Naissance :"));
             para1.add(new Paragraph(corrigeLaDate(dateDeNaissance)));
