@@ -140,10 +140,10 @@ public class PanelPDF extends javax.swing.JPanel {
         File dossierChoisi;
         String lienDossier;
         
-        result = selectPDF.getChoisirDossier().showOpenDialog(this);
+        result = selectPDF.showOpenDialog(this);
         
         if (result == JFileChooser.APPROVE_OPTION) {
-            dossierChoisi=selectPDF.getChoisirDossier().getSelectedFile();
+            dossierChoisi=selectPDF.getSelectedFile();
             lienDossier = dossierChoisi.toString();
             this.lienPDF=lienDossier;
             jLabelLienPDF.setForeground(Color.black);
@@ -174,7 +174,7 @@ public class PanelPDF extends javax.swing.JPanel {
 
 
     public String lienPDF;
-    public SelectionnerPDF selectPDF = new SelectionnerPDF();
+    public choisirDossier selectPDF = new choisirDossier();
     private String nom="";
     private String prenom="";
     private String numero="";

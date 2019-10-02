@@ -17,12 +17,10 @@ import javax.swing.JOptionPane;
 public class TestPDF extends javax.swing.JFrame {
 
     /** Creates new form TestPDF */
-    public SelectionnerPDF selectPDF = new SelectionnerPDF();
     private Image image;
     
     public TestPDF() throws BadElementException, IOException {
         initComponents();
-        selectPDF.setVisible(false);
         Date date = new Date(2000, 7, 10);
         String[] exp = {"Stage 1","Stage 2"};
         String[] form = {"BAC STI2D","BTS SIO"};
