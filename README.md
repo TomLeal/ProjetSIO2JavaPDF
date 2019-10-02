@@ -4,4 +4,4 @@
 
 Vous devez avoir la librairie **itextpdf** : https://drive.google.com/file/d/1VEZgIOtgvnktaJA1tEq_sBnn_a6W-GbJ/view?usp=sharing
 
-**Ancienne** documentation : https://docs.google.com/document/d/1akyW-MrghtW3rSH64mCMiZG6vwt-CyPrz5T4NewIFX4/edit?usp=sharing
+Documentation : https://docs.google.com/document/d/119Ruata1XwvecIp7XuenZ_cP0t_y3ueiwdJiSaINICg/edit?usp=sharing
