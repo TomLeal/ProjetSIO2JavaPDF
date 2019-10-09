@@ -2,6 +2,27 @@
 
 *Projet de BTS SIO seconde année.*
 
-Vous devez avoir la librairie **itextpdf** : https://drive.google.com/file/d/1VEZgIOtgvnktaJA1tEq_sBnn_a6W-GbJ/view?usp=sharing
+Ce composant sert à créer un CV et l'enregistrer au format PDF en récupérant les informations 
+
+## Installation
+
+Vous devez avoir ces librairies : [Cliquez ici](https://drive.google.com/file/d/1VEZgIOtgvnktaJA1tEq_sBnn_a6W-GbJ/view?usp=sharing)
+
+### Application Java
+
+Avec Netbeans.
+
+* Téléchargez le composant.
+* Intégrez le package "com.karimandco.pdf dans votre projet.
+* Ajoutez le fichier "PanelPDF.java" dans votre pallete (*clique droit --> tools --> add to palatte*) si vous voulez le mettre dans votre fenêtre.
+
+### Maven
+
+Avec Netbeans.
+
+* Télécharger le composant.
+* Clique droit sur “Dependencies” puis “Add dependencies”
+* Cherchez la librairie “itextpdf 5.5.13.1”, vous trouverez “com.itextpdf : itextpdf”
+* Prenez la version 5.5.13.1
 
 Documentation : https://docs.google.com/document/d/119Ruata1XwvecIp7XuenZ_cP0t_y3ueiwdJiSaINICg/edit?usp=sharing
