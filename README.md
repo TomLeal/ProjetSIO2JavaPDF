@@ -27,6 +27,6 @@ Avec Netbeans.
 * Intégrez le package "com.karimandco.pdf dans votre projet.
 * Ajoutez le fichier "VoirPdf.java" dans votre pallete (*clique droit --> tools --> add to palatte*) si vous voulez le mettre dans votre fenêtre.
 
-## Document
+## Documents
 
 * [Documentation](https://docs.google.com/document/d/119Ruata1XwvecIp7XuenZ_cP0t_y3ueiwdJiSaINICg/edit?usp=sharing)
