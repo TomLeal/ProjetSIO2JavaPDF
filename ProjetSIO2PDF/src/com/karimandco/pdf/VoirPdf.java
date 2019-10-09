@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.karimandco.pdf;
 
 import com.itextpdf.text.BadElementException;
@@ -16,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Damien
+ * @author Tom, Léo, Lorenzo
  */
 public class VoirPdf extends javax.swing.JPanel {
 
@@ -112,7 +107,7 @@ public class VoirPdf extends javax.swing.JPanel {
                 }
 
             } catch (FileNotFoundException ex) {
-                JOptionPane.showConfirmDialog(this, "Erreur");
+                JOptionPane.showMessageDialog(this, "Erreur", "PDF", JOptionPane.ERROR_MESSAGE);
             } catch (BadElementException ex) {
                 Logger.getLogger(PanelPDF.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {

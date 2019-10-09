@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author t.leal
+ * @author Tom, Léo, Lorenzo
  */
 public class PanelPDF extends javax.swing.JPanel {
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.karimandco.pdf;
 
 import com.itextpdf.text.BadElementException;
@@ -41,7 +36,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author l.saupagna
+ * @author Tom, Léo, Lorenzo
  */
 public class Pdf {
 
@@ -52,7 +47,7 @@ public class Pdf {
     String lienPDF;
     Integer code = new Random().nextInt(100000000);
     Integer idUtilisateur;
-    String bite = code.toString();
+    String test = code.toString();
     private ConnexionDB connexionDb = new ConnexionDB();
     private Connection connexion;
 
@@ -64,7 +59,7 @@ public class Pdf {
         this.lienPDF = lienPDF;
         
         connexion = connexionDb.getConnnexion();
-        idUtilisateur = 106;
+        idUtilisateur = 141;
     }
 
     public boolean verifPDF() {
@@ -87,9 +82,9 @@ public class Pdf {
             }
         }
 
-        lienResult = new File("src\\com\\karimandco\\pdf\\cv\\cv" + bite + ".pdf").getAbsolutePath();
+        lienResult = new File("src\\com\\karimandco\\pdf\\cv\\cv" + test + ".pdf").getAbsolutePath();
 
-        String nomCv = "cv" + bite + ".pdf";
+        String nomCv = "cv" + test + ".pdf";
         String resultat = nomCv + "|" + lienResult;
 
         return resultat;
@@ -374,7 +369,7 @@ public class Pdf {
     public String getFormation(String cat) throws SQLException {
         if (DaoSIO.getInstance().connexionActive()) {
             System.out.println(DaoSIO.getInstance().connexionActive());
-            ResultSet res = DaoSIO.getInstance().requeteSelection("SELECT * FROM formation WHERE id_cv = " + getIDCV(106) );
+            ResultSet res = DaoSIO.getInstance().requeteSelection("SELECT * FROM formation WHERE id_cv = " + getIDCV(idUtilisateur) );
 
             if (res.next()) {
                 return res.getString(cat);
@@ -385,7 +380,7 @@ public class Pdf {
     public String getExperience(String cat) throws SQLException {
         if (DaoSIO.getInstance().connexionActive()) {
             System.out.println(DaoSIO.getInstance().connexionActive());
-            ResultSet res = DaoSIO.getInstance().requeteSelection("SELECT * FROM experience_pro WHERE id_cv = " + getIDCV(106) );
+            ResultSet res = DaoSIO.getInstance().requeteSelection("SELECT * FROM experience_pro WHERE id_cv = " + getIDCV(idUtilisateur) );
 
             if (res.next()) {
                 return res.getString(cat);

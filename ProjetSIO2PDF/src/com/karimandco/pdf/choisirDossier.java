@@ -5,7 +5,7 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author t.leal
+ * @author Tom, Léo, Lorenzo
  */
 public class choisirDossier extends JFileChooser {
 

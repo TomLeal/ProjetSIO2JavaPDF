@@ -2,7 +2,7 @@ package com.karimandco.pdf;
 
 /**
  *
- * @author Damien
+ * @author Tom, Léo, Lorenzo
  */
 import com.adobe.acrobat.Viewer;
 import java.awt.BorderLayout;

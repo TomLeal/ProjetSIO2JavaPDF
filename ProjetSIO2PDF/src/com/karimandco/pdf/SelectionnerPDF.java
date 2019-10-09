@@ -2,7 +2,7 @@ package com.karimandco.pdf;
 
 /**
  *
- * @author t.leal
+ * @author Tom, Léo, Lorenzo
  */
 public class SelectionnerPDF extends javax.swing.JFrame {
 
