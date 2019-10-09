@@ -1,12 +1,10 @@
 package com.karimandco.pdf;
 
 import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Image;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -24,62 +22,28 @@ public class PanelPDF extends javax.swing.JPanel {
      */
     public PanelPDF() {
         initComponents();
-        lienPDF="";
+        lienPDF= "";
         jLabelLienPDF.setForeground(Color.red);
         jLabelLienPDF.setText("Choisissez un dossier");
-    }
-    
-    public PanelPDF(String nom, String prenom, String numero, String courriel, Date dateDeNaissance, String[] experience, String[] formation, String[] informatique, String[] langues, String[] centreInteret, Image image){
-        initComponents();
-        lienPDF="";
-        jLabelLienPDF.setForeground(Color.red);
-        jLabelLienPDF.setText("Choisissez un dossier");
-        modifieValeur(nom, prenom, numero, courriel, dateDeNaissance, experience, formation, informatique, langues, centreInteret, image);
+        
+        nom="FREGOLENT";
+        prenom="Damien";
+        numero="06 37 80 45 65";
     }
 
-    //Mutateur et accesseur
-    
-    /**
-     * Modifie le nom.
-     * @param nom 
-     */
     public void setNom(String nom) {
         this.nom = nom;
     }
-    /**
-     * Modifie le prénom.
-     * @param prenom 
-     */
+
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-    /**
-     * Modifie le numéro.
-     * @param numero 
-     */
+
     public void setNumero(String numero) {
         this.numero = numero;
     }
     
-    /**
-     * Modifie les valeurs du CV.
-     * @param nom
-     * @param prenom
-     * @param numero 
-     */
-    public void modifieValeur(String nom, String prenom, String numero, String courriel, Date dateDeNaissance, String[] experience, String[] formation, String[] informatique, String[] langues, String[] centreInteret, Image image){
-        this.nom=nom;
-        this.prenom=prenom;
-        this.numero=numero;
-        this.courriel=courriel;
-        this.dateDeNaissance=dateDeNaissance;
-        this.experience=experience;
-        this.formation=formation;
-        this.informatique=informatique;
-        this.langues=langues;
-        this.centreInteret=centreInteret;
-        this.image=image;
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,11 +66,21 @@ public class PanelPDF extends javax.swing.JPanel {
                 jButtonChoisirBoutonMouseClicked(evt);
             }
         });
+        jButtonChoisirBouton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonChoisirBoutonActionPerformed(evt);
+            }
+        });
 
         jButtonEnregistrerPDF.setText("Enregistrer");
         jButtonEnregistrerPDF.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonEnregistrerPDFMouseClicked(evt);
+            }
+        });
+        jButtonEnregistrerPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEnregistrerPDFActionPerformed(evt);
             }
         });
 
@@ -140,10 +114,10 @@ public class PanelPDF extends javax.swing.JPanel {
         File dossierChoisi;
         String lienDossier;
         
-        result = selectPDF.showOpenDialog(this);
+        result = selectPDF.getChoisirDossier().showOpenDialog(this);
         
         if (result == JFileChooser.APPROVE_OPTION) {
-            dossierChoisi=selectPDF.getSelectedFile();
+            dossierChoisi=selectPDF.getChoisirDossier().getSelectedFile();
             lienDossier = dossierChoisi.toString();
             this.lienPDF=lienDossier;
             jLabelLienPDF.setForeground(Color.black);
@@ -154,38 +128,38 @@ public class PanelPDF extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonChoisirBoutonMouseClicked
 
     private void jButtonEnregistrerPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEnregistrerPDFMouseClicked
-        Pdf pdf = new Pdf(nom, prenom, numero, courriel, lienPDF, dateDeNaissance, experience, formation, informatique, langues, centreInteret, image);
+        Pdf pdf = new Pdf(nom, prenom, numero, lienPDF);
         System.out.println(lienPDF);
         if (pdf.verifPDF()) {
             try {
                 pdf.genererPDF();
                 JOptionPane.showMessageDialog(this, "cv.pdf a été enregistré dans "+lienPDF);
             } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(this, "Erreur","PDF",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showConfirmDialog(this, "Erreur");
             } catch (BadElementException ex) {
                 Logger.getLogger(PanelPDF.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(PanelPDF.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Vous devez sélectionné un dossier.","PDF",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showConfirmDialog(this, "Pas ok, c'est pas bon");
         }
     }//GEN-LAST:event_jButtonEnregistrerPDFMouseClicked
 
+    private void jButtonEnregistrerPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnregistrerPDFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEnregistrerPDFActionPerformed
+
+    private void jButtonChoisirBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChoisirBoutonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonChoisirBoutonActionPerformed
+
 
     public String lienPDF;
-    public choisirDossier selectPDF = new choisirDossier();
+    public SelectionnerPDF selectPDF = new SelectionnerPDF();
     private String nom="";
     private String prenom="";
     private String numero="";
-    private String courriel="";
-    private Date dateDeNaissance=null;
-    private String[] experience;
-    private String[] formation;
-    private String[] informatique;
-    private String[] langues;
-    private String[] centreInteret;
-    private Image image;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonChoisirBouton;
     private javax.swing.JButton jButtonEnregistrerPDF;

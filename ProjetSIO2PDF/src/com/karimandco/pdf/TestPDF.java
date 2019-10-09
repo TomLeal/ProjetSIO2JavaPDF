@@ -1,34 +1,21 @@
 package com.karimandco.pdf;
 
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Image;
 import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
- * /!\ A SUPPRIMER /!\
+ * Jeu d'essai
  * @author t.leal
  */
 public class TestPDF extends javax.swing.JFrame {
 
     /** Creates new form TestPDF */
-    private Image image;
+    public SelectionnerPDF selectPDF = new SelectionnerPDF();
     
-    public TestPDF() throws BadElementException, IOException {
+    public TestPDF() {
         initComponents();
-        Date date = new Date(2000, 7, 10);
-        String[] exp = {"Stage 1","Stage 2"};
-        String[] form = {"BAC STI2D","BTS SIO"};
-        String[] info = {"HTML", "Javascript", "CSS", "Java", "Python"};
-        String[] lang = {"Anglais", "Espagnol"};
-        String[] cI = {"Test 1", "Test 2"};
-        image = Image.getInstance("https://kodejava.org/wp-content/uploads/2017/01/kodejava.png");
-        panelPDF1.modifieValeur("Leal", "Tom", "06 06 06 06 06", "tomleal@karimandco.fr", date, exp, form, info, lang, cI, image);
+        selectPDF.setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -40,25 +27,36 @@ public class TestPDF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelPDF1 = new com.karimandco.pdf.PanelPDF();
+        voirPdf2 = new com.karimandco.pdf.VoirPdf();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Maiandra GD", 0, 48)); // NOI18N
+        jLabel1.setText("Edition du CV en PDF");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(panelPDF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(245, 245, 245)
+                        .addComponent(voirPdf2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(361, Short.MAX_VALUE)
-                .addComponent(panelPDF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(voirPdf2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -91,17 +89,13 @@ public class TestPDF extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new TestPDF().setVisible(true);
-                } catch (BadElementException ex) {
-                    Logger.getLogger(TestPDF.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(TestPDF.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new TestPDF().setVisible(true);
             }
         });
         
@@ -109,7 +103,8 @@ public class TestPDF extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.karimandco.pdf.PanelPDF panelPDF1;
+    private javax.swing.JLabel jLabel1;
+    private com.karimandco.pdf.VoirPdf voirPdf2;
     // End of variables declaration//GEN-END:variables
 
 }
