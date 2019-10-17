@@ -22,8 +22,8 @@ Avec Netbeans.
 
 * Télécharger le composant.
 * Clique droit sur “Dependencies” puis “Add dependencies”
-* Cherchez la librairie “itextpdf 5.5.13.1”, vous trouverez “com.itextpdf : itextpdf”
-* Prenez la version 5.5.13.1
+* Cherchez les librairies “itextpdf 5.5.13.1” et "acrobat", vous trouverez “com.itextpdf : itextpdf” et "com.adobe.acrobat : acrobat".
+* Prenez la version 5.5.13.1 pour itext et la version 1.1 pour acrobat.
 * Intégrez le package "com.karimandco.pdf dans votre projet.
 * Ajoutez le fichier "VoirPdf.java" dans votre pallete (*clique droit --> tools --> add to palette*) si vous voulez le mettre dans votre fenêtre.
 
