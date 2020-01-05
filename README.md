@@ -27,6 +27,11 @@ Avec Netbeans.
 * Intégrez le package "com.karimandco.pdf dans votre projet.
 * Ajoutez le fichier "VoirPdf.java" dans votre pallete (*clique droit --> tools --> add to palette*) si vous voulez le mettre dans votre fenêtre.
 
+### Configuration
+
+* Entrer les informations de votre base de données dans la classe "DaoSIO".
+* Ajouter un Utilisateur avec la méthode setUtil(Utilisateur) de la classe PDF.
+
 ## Documents
 
 * [Documentation](https://docs.google.com/document/d/119Ruata1XwvecIp7XuenZ_cP0t_y3ueiwdJiSaINICg/edit?usp=sharing)
