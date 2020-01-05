@@ -14,23 +14,17 @@ import javax.swing.JOptionPane;
  * @author Tom, Léo, Lorenzo
  */
 public class VoirPdf extends javax.swing.JPanel {
-
-    private String nom = "";
-    private String prenom = "";
-    private String numero = "";
+    
     private String lienPDF = "";
-    private Pdf pdf = null;
+    public Pdf pdf2 = null;
 
     /**
      * Creates new form VoirPdf
      */
     public VoirPdf() {
         initComponents();
-        nom = "FREGOLENT";
-        prenom = "Damien";
-        numero = "06 37 80 45 65";
         lienPDF = "cv";
-        this.pdf = new Pdf(nom, prenom, numero, lienPDF);
+        this.pdf2 = new Pdf(lienPDF);
     }
 
     /**
@@ -43,6 +37,8 @@ public class VoirPdf extends javax.swing.JPanel {
     private void initComponents() {
 
         appercu = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         appercu.setText("Voir le pdf");
         appercu.addActionListener(new java.awt.event.ActionListener() {
@@ -70,27 +66,33 @@ public class VoirPdf extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public String adjouterAuFichierASupprimer() {
-        String fichierADelete = this.pdf.getUrlCv();
+        String fichierADelete = this.pdf2.getUrlCv();
         return fichierADelete;
     }
 
     
     public String ajouterUnCv(){
-        String tableau = adjouterAuFichierASupprimer() + "|" + this.pdf.getUrlCv();
+        String tableau = adjouterAuFichierASupprimer() + "|" + this.pdf2.getUrlCv();
         return tableau;
+    }
+
+    public Pdf getPdf() {
+        return pdf2;
+    }
+    
+    public Pdf toto(){
+        return this.pdf2;
     }
 
     
     private void appercuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appercuActionPerformed
-        this.pdf = new Pdf(nom, prenom, numero, lienPDF);
-//        String urlFichier = pdf.getUrlCv();
-//        String fichierADelete = urlFichier + "|" + urlFichier;
+        this.pdf2 = new Pdf(lienPDF);
         System.out.println(ajouterUnCv());
 
-        if (pdf.verifPDF()) {
+        if (pdf2.verifPDF()) {
             try {
-                pdf.genererPDF();
-                LecteurPDF lecteur = new LecteurPDF(pdf.getUrlCv());
+                pdf2.genererPDF();
+                LecteurPDF lecteur = new LecteurPDF(pdf2.getUrlCv());
                 //créer le JFrame
                 JFrame f = new JFrame("Lecteur PDF");
                 f.setSize(1024, 768);
@@ -99,8 +101,8 @@ public class VoirPdf extends javax.swing.JPanel {
                 f.setVisible(true);
                 f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 if (JFrame.DISPOSE_ON_CLOSE >= 0) {
-                    System.out.println(pdf.getUrlCv());
-                    File monfichier = new File(pdf.getUrlCv());
+                    System.out.println(pdf2.getUrlCv());
+                    File monfichier = new File(pdf2.getUrlCv());
                     monfichier.deleteOnExit();
                 } else {
                     System.out.println("Pas coucou1");
@@ -109,16 +111,16 @@ public class VoirPdf extends javax.swing.JPanel {
             } catch (FileNotFoundException ex) {
                 JOptionPane.showMessageDialog(this, "Erreur", "PDF", JOptionPane.ERROR_MESSAGE);
             } catch (BadElementException ex) {
-                Logger.getLogger(PanelPDF.class.getName()).log(Level.SEVERE, null, ex);
+
             } catch (IOException ex) {
-                Logger.getLogger(PanelPDF.class.getName()).log(Level.SEVERE, null, ex);
+
             } catch (Exception ex) {
                 Logger.getLogger(VoirPdf.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             JOptionPane.showConfirmDialog(this, "Pas ok, c'est pas bon");
         }
-        System.out.println(pdf.getNomCv());
+        System.out.println(pdf2.getNomCv());
     }//GEN-LAST:event_appercuActionPerformed
 
 

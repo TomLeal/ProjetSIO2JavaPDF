@@ -14,7 +14,6 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.html.WebColors;
 import static com.itextpdf.text.html.WebColors.getRGBColor;
 import com.itextpdf.text.pdf.FontSelector;
-import static com.itextpdf.text.pdf.PdfName.DEST;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -24,12 +23,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,30 +35,27 @@ import java.util.logging.Logger;
  */
 public class Pdf {
 
-    
-    String nom;
-    String prenom;
-    String numero;
     String lienPDF;
     Integer code = new Random().nextInt(100000000);
-    Integer idUtilisateur;
+    static Integer idUtilisateur;
     String test = code.toString();
     private ConnexionDB connexionDb = new ConnexionDB();
     private Connection connexion;
+    private Utilisateur util = new Utilisateur();
+    private String idDuCV = "";
 
-
-    public Pdf(String nom, String prenom, String numero, String lienPDF) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.numero = numero;
+    public Pdf(String lienPDF) {
         this.lienPDF = lienPDF;
-        
+
         connexion = connexionDb.getConnnexion();
-        idUtilisateur = 141;
+    }
+
+    public void setUtil(Utilisateur util) {
+        this.util = util;
     }
 
     public boolean verifPDF() {
-        if (nom != "" && prenom != "" && numero != "" && lienPDF != "") {
+        if (lienPDF != "") {
             return true;
         } else {
             return false;
@@ -90,6 +82,7 @@ public class Pdf {
         return resultat;
     }
 
+    //Accesseur et mutateur
     public String getNomCv() {
         String nomCvAvantSplit = corrigeLeLien("cv");
         String[] nomCvSplit = nomCvAvantSplit.split("[|]");
@@ -106,11 +99,21 @@ public class Pdf {
         return urlCv;
     }
 
+    public void setIdUtilisateur(Integer idUtilisateur) {
+        this.idUtilisateur = idUtilisateur;
+    }
+
     public void genererPDF() throws FileNotFoundException, BadElementException, IOException {
         try {
 
+            idDuCV = getIDCV(idUtilisateur);
             lienPDF = this.getUrlCv();
-            System.out.println(lienPDF);
+            //idUtilisateur = 235;
+            System.out.println("ID : " + idUtilisateur);
+
+            ArrayList<Formation> forms = Formation.recupFormation(idDuCV);
+            ArrayList<ExperiencePro> expPros = ExperiencePro.recupExperiencePro(idDuCV);
+            CV cv = CV.recupCV(idDuCV);
 
             Document document = new Document(PageSize.A4, 0, 0, 0, 0);
             /**
@@ -133,7 +136,7 @@ public class Pdf {
             f6.setColor(getRGBColor("#318CE7"));
             selector.addFont(f6);
             Image image;
-            String url = "https://kodejava.org/wp-content/uploads/2017/01/kodejava.png";
+            String url = "src/image/profil.png";
             image = Image.getInstance(url);
 
             PdfWriter.getInstance(document, new FileOutputStream(lienPDF));
@@ -190,7 +193,6 @@ public class Pdf {
             White21.setFixedHeight(840);
             Table.addCell(White21);
 
-
             PdfPCell C1 = new PdfPCell(new Phrase("Gris"));
             C1.setBackgroundColor(BaseColor.LIGHT_GRAY);
             C1.setFixedHeight(840);
@@ -228,10 +230,11 @@ public class Pdf {
             PdfPCell Para = new PdfPCell(new Phrase(""));
             Para.setBorderColor(BaseColor.WHITE);
             Paragraph para1 = new Paragraph("");
-            para1.add(new Paragraph( getUtilisateur(idUtilisateur,"nom") +" "+ getUtilisateur(idUtilisateur,"prenom"), f2));
-            para1.add(new Paragraph(getUtilisateur(idUtilisateur,"courriel"), f3));
-            para1.add(new Paragraph(getUtilisateur(idUtilisateur,"num_telephone"), f1));
-            para1.add(new Paragraph("Date de Naissance"+ getUtilisateur(idUtilisateur,"date_de_naissance"),f1));
+            para1.add(new Paragraph(util.getNom() + " " + util.getPrenom(), f2));
+            para1.add(new Paragraph(util.getCourriel(), f3));
+            para1.add(new Paragraph(util.getNumeroTelephone(), f1));
+            para1.add(new Paragraph("Date de Naissance : " + util.getDateNaissance(), f1));
+            para1.add(new Paragraph(cv.getDescription(), f1));
             Para.addElement(para1);
             /**
              * Creation de la Cellule Image
@@ -242,12 +245,16 @@ public class Pdf {
             /**
              * Création de la Cellule
              */
+
             PdfPCell FormationC = new PdfPCell(new Phrase(""));
-            Paragraph FormationCV = new Paragraph("Formation : "+getFormation("nom"), f3);
-            FormationCV.add(new Paragraph("Lieu : "+getFormation("lieu"), f1));
-            FormationCV.add(new Paragraph("Date :", f1));
-            FormationCV.add(new Paragraph("Date : du "+getFormation("annee_debut")+" au "+getFormation("annee_fin"), f1));
-            FormationCV.add(new Paragraph(getFormation("description"), f1));
+            Paragraph FormationCV = new Paragraph("", f1);
+            for (Formation formation : forms) {
+                FormationCV.add(new Paragraph(" ", f1));
+                FormationCV.add(new Paragraph(formation.getNom(), f1));
+                FormationCV.add(new Paragraph("Adresse : " + formation.getLieu(), f1));
+                FormationCV.add(new Paragraph("Du " + formation.getAnneeDebut() + " au " + formation.getAnneeFin(), f1));
+                FormationCV.add(new Paragraph(formation.getDescription(), f1));
+            }
             FormationC.addElement(FormationCV);
 
             FormationC.setBorderColor(BaseColor.WHITE);
@@ -259,14 +266,18 @@ public class Pdf {
             Expe.add(new Paragraph(" ", f6));
             ExpePro.setBorderColor(BaseColor.WHITE);
             ExpePro.addElement(Expe);
-            
-            PdfPCell Experience = new PdfPCell(new Phrase(""));
-            Paragraph ExperienceP = new Paragraph("Entreprise : "+getExperience("entreprise"), f3);
-            ExperienceP.add(new Paragraph("Adresse : "+getExperience("adresse"), f1));
-            ExperienceP.add(new Paragraph("Date : du "+getFormation("annee_debut")+" au "+getFormation("annee_fin"), f1));
-            ExperienceP.add(new Paragraph(getFormation("description"), f1));
-            Experience.addElement(ExperienceP);
 
+            PdfPCell Experience = new PdfPCell(new Phrase(""));
+            Paragraph ExperienceP = new Paragraph("", f1);
+            for (ExperiencePro exp : expPros) {
+                ExperienceP.add(new Paragraph(" ", f1));
+                ExperienceP.add(new Paragraph(exp.getEntreprise(), f1));
+                ExperienceP.add(new Paragraph("Adresse : " + exp.getLieu(), f1));
+                ExperienceP.add(new Paragraph("Du " + exp.getAnneeDebut() + " au " + exp.getAnneeFin(), f1));
+                ExperienceP.add(new Paragraph(exp.getDescription(), f1));
+            }
+
+            Experience.addElement(ExperienceP);
 
             Experience.setBorderColor(BaseColor.WHITE);
             /**
@@ -277,30 +288,24 @@ public class Pdf {
             Forma.add(new Paragraph(" ", f6));
             Formation.setBorderColor(BaseColor.WHITE);
             Formation.addElement(Forma);
+
             /**
-             * Création de la categorie Informatique
+             * Création de la categorie compétence
              */
             PdfPCell Competence = new PdfPCell(new Phrase(""));
             Paragraph Compete = new Paragraph("COMPETENCE", f5);
             Compete.add(new Paragraph(" ", f6));
             Competence.setBorderColor(BaseColor.WHITE);
             Competence.addElement(Compete);
-            /**
-             * Création de la categorie Langues
-             */
-            PdfPCell Langues = new PdfPCell(new Phrase(""));
-            Paragraph Lange = new Paragraph("LANGUES", f5);
-            Lange.add(new Paragraph(" ", f6));
-            Langues.setBorderColor(BaseColor.WHITE);
-            Langues.addElement(Lange);
-            /**
-             * Création de la categorie Centres D'Interet
-             */
-            PdfPCell Centres = new PdfPCell(new Phrase(""));
-            Paragraph Centr = new Paragraph("CENTRES D'INTERET", f5);
-            Centr.add(new Paragraph(" ", f6));
-            Centres.setBorderColor(BaseColor.WHITE);
-            Centres.addElement(Centr);
+
+            System.out.println(cv.getNomMaitrise2());
+            PdfPCell compet = new PdfPCell(new Phrase(""));
+            Paragraph competenceP = new Paragraph("", f1);
+            competenceP.add(new Paragraph(cv.getNomMaitrise1() + " : " + cv.calculNiveauMaitrise(cv.getMaitrise1()), f1));
+            competenceP.add(new Paragraph(cv.getNomMaitrise2() + " : " + cv.calculNiveauMaitrise(cv.getMaitrise2()), f1));
+            compet.setBorderColor(BaseColor.WHITE);
+            compet.addElement(competenceP);
+
             /**
              * Création de la barre bleu qui sépare chaque Categorie
              */
@@ -321,14 +326,13 @@ public class Pdf {
             Table2.addCell(TraitBleu);
             Table2.addCell(FormationC);
             Table2.addCell(Competence);
+            Table2.addCell(compet);
             Table2.addCell(TraitBleu);
             //Table2.addCell(espaces);
-            Table2.addCell(Langues);
             Table2.addCell(TraitBleu);
-           // Table2.addCell(espaces);
-            Table2.addCell(Centres);
+            // Table2.addCell(espaces);
             Table2.addCell(TraitBleu);
-           // Table2.addCell(espaces);
+            // Table2.addCell(espaces);
             Plein.addElement(Table2);
             Table.addCell(Plein);
 
@@ -338,56 +342,28 @@ public class Pdf {
 
         } catch (DocumentException ex) {
             Logger.getLogger(Pdf.class.getName()).log(Level.SEVERE, null, ex);
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Pdf.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }
-    public String getUtilisateur(Integer id,String cat) throws SQLException {
-        if (DaoSIO.getInstance().connexionActive()) {
-            System.out.println(DaoSIO.getInstance().connexionActive());
-            ResultSet res = DaoSIO.getInstance().requeteSelection("SELECT * FROM utilisateurs WHERE id = " + id);
 
-            if (res.next()) {
-                return res.getString(cat);
-            }
-        }
-        return nom;
     }
-    public String getIDCV(Integer id) throws SQLException {
+
+    /**
+     * Récupère l'id du CV d'un utilisateur dans la base de donnée.
+     *
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    private String getIDCV(Integer id) throws SQLException {
         if (DaoSIO.getInstance().connexionActive()) {
             System.out.println(DaoSIO.getInstance().connexionActive());
             ResultSet idcv = DaoSIO.getInstance().requeteSelection("SELECT * FROM cv WHERE id_utilisateur = " + id);
             if (idcv.next()) {
-            return idcv.getString("id");
+                return idcv.getString("id");
             }
         }
-        return nom;
+        return "";
     }
-    public String getFormation(String cat) throws SQLException {
-        if (DaoSIO.getInstance().connexionActive()) {
-            System.out.println(DaoSIO.getInstance().connexionActive());
-            ResultSet res = DaoSIO.getInstance().requeteSelection("SELECT * FROM formation WHERE id_cv = " + getIDCV(idUtilisateur) );
-
-            if (res.next()) {
-                return res.getString(cat);
-            }
-        }
-        return nom;
-    }
-    public String getExperience(String cat) throws SQLException {
-        if (DaoSIO.getInstance().connexionActive()) {
-            System.out.println(DaoSIO.getInstance().connexionActive());
-            ResultSet res = DaoSIO.getInstance().requeteSelection("SELECT * FROM experience_pro WHERE id_cv = " + getIDCV(idUtilisateur) );
-
-            if (res.next()) {
-                return res.getString(cat);
-            }
-        }
-        return nom;
-    }
-    
-
 }

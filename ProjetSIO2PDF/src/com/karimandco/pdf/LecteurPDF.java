@@ -18,7 +18,7 @@ public class LecteurPDF extends JPanel {
 
     private Viewer viewer;
 
-    Pdf lePdf;
+    private Pdf lePdf;
 
     public LecteurPDF(String nomfichier) throws Exception {
         this.setLayout(new BorderLayout());
@@ -29,7 +29,7 @@ public class LecteurPDF extends JPanel {
         FileInputStream fis = new FileInputStream(nomfichier);
         viewer.setDocumentInputStream(fis);
         viewer.activate();
-        this.lePdf = new Pdf("bhqjq", "sqsf", "fqfq", "fqfqfq");
+        this.lePdf = new Pdf("fqfqfq");
     }
 
     public static void main(String[] args) throws Exception {

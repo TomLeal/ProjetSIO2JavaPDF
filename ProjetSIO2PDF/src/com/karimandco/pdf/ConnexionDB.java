@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.karimandco.pdf;
 
 import com.mysql.jdbc.Connection;
@@ -23,12 +18,6 @@ public class ConnexionDB {
     
     private String connexionURI = "jdbc:mysql://";
     private Connection connexion;
-    
-//    private String hostname = "localhost";
-//    private Integer port = 3306;
-//    private String database = "sio2_cv";
-//    private String username = "root";
-//    private String password = "totololo";
     
     private String hostname = "www.cnadal.fr";
     private Integer port = 3306;
